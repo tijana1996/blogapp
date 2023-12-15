@@ -13,13 +13,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/posts">Posts</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/createpost">Create Posts</a>
-                </li>
+
             </li>
             @if (!auth()->user())
-                
-            
+
+
             <li class="nav-item">
                 <a class="nav-link" href="/login">Login</a>
             </li>
@@ -28,7 +26,16 @@
                  <li class="nav-item">
                  <a class="nav-link" href="/register">Register</a>
             </li>
+
+
             @else
+
+            @if (auth()->user()->IsAdmin)
+
+            <li class="nav-item">
+                <a class="nav-link" href="/createpost">Create Posts</a>
+            </li>
+            @endif
 
         </li>
         <li class="nav-item">

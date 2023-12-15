@@ -5,15 +5,16 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class RegisterRequest extends FormRequest
+class CreatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        if(Auth::check()) return false;
-        return true;
+        if(Auth::check()){
+            return true;
+        }
     }
 
     /**
@@ -24,9 +25,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-         'name' => 'required|min:2|max:255|string',
-         'email' => 'required|email|max:255|unique:users,email',
-         'password' => 'required|min:2|max:255|string|confirmed'
+            //
         ];
     }
 }

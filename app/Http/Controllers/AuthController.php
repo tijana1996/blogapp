@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Contracts\Session\Session;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session as FacadesSession;
-use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
 class AuthController extends Controller
 {
@@ -24,7 +21,7 @@ class AuthController extends Controller
 
     }
 
-    public function register(RegisterRequest $request) {
+    public function store(RegisterRequest $request) {
         User::create([
             'name' => $request->name,
             'email' => $request -> email,
@@ -35,7 +32,7 @@ class AuthController extends Controller
 
     }
 
-    public function login(LoginRequest $request) {
+    public function index(LoginRequest $request) {
        if (Auth::check()) {
         return redirect('/login') -> withErrors('You are alredy logged in!');
        }
@@ -47,8 +44,8 @@ class AuthController extends Controller
 
     }
 
-    public function logout(){
-        Session::flush();
+    public function destroy(){
+        FacadesSession::flush();
         Auth::logout();
 
         return redirect('/')-> with ('status', 'Logged out');
